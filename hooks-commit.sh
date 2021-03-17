@@ -37,6 +37,8 @@ do
         echo "\033[32m$st $file\033[0m"
     fi
 
+    echo "\033[32m$st\033[0m"
+
 done
 
 echo "\033[33m* 改动文件拷贝结束 *\033[0m"
