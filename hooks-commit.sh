@@ -8,10 +8,10 @@
 #################### 配置变量 #####################
 
 # 源项目根目录
-sourceDir='./'
+sourceDir="./"
 
 # 目标项目根目录
-targetDir='../test2'
+targetDir="../test2"
 
 # 排除文件或目录，多个使用竖线"|"分隔
 excludes='dist/*'
@@ -27,12 +27,12 @@ do
 
     # 拷贝复制文件
     if [ "$st" = 'A' ] || [ "$st" = 'M' ]; then 
-        cp --path "'$sourceDir/$file'" "'$targetDir'"
+        cp --path "$sourceDir/$file" "$targetDir"
         echo "\033[32m$st $file\033[0m"
 
     # 删除文件
     elif [ "$st" = 'D' ]; then 
-        rm -f "'$targetDir/$file'"
+        rm -f "$targetDir/$file"
         echo "\033[32m$st $file\033[0m"
 
     # 重命名文件
