@@ -21,28 +21,28 @@ excludes='dist/*'
 echo "\033[33m* 改动文件拷贝开始 *\033[0m"
 
 # 获取变化文件列表
-git diff --cached --name-status | grep -Ev "$excludes" | awk 'gsub("\t","\001",$0)' |
-while read line
+git diff --cached --name-status | grep -Ev "$excludes" |
+while read st file
 do
-
-    st=`echo $line | awk -F "\001" '{print $1}'`
-    file1=`echo $line | awk -F "\001" '{print $2}'`
-    file2=`echo $line | awk -F "\001" '{print $3}'`
 
     # 拷贝复制文件
     if [ "$st" = 'A' ] || [ "$st" = 'M' ]; then 
-        cp --path "$sourceDir/$file1" "$targetDir"
-        echo "\033[32m$st\t$file1\033[0m"
+        cp --path "$sourceDir/$file" "$targetDir"
+        echo "\033[32m$st $file\033[0m"
 
     # 删除文件
     elif [ "$st" = 'D' ]; then 
-        rm -f "$targetDir/$file1"
-        echo "\033[32m$st\t$file1\033[0m"
+        rm -f "$targetDir/$file"
+        echo "\033[32m$st $file\033[0m"
 
     # 重命名文件
     elif [ "$st" = 'R100' ]; then 
-        mv -f "$targetDir/$file1" "$targetDir/$file2"
-        echo "\033[32mR\t$file1\t$file2\033[0m"
+        source=`echo $file | awk -F'[[:space:]][[:space:]]' '{print $1}'`
+        target=`echo $file | awk -F'[[:space:]][[:space:]]' '{print $2}'`
+        echo $source
+        echo $target
+        # mv -f "$targetDir/$source" "$targetDir/$target"
+        echo "\033[32mR $file\033[0m"
     fi
 
 done

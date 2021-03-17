@@ -1,0 +1,4 @@
+R100	hello/difei copy.txt	hello/difei copy2.txt
+M	hooks-commit.sh
+R100	hello/difei copy.txt	hello/difei copy2.txt
+M	hooks-commit.sh
