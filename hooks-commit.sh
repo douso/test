@@ -29,15 +29,19 @@ do
     if [ "$st" = 'A' ] || [ "$st" = 'M' ]; then 
         cp --path "$sourceDir/$file" "$targetDir"
         echo "\033[32m$st $file\033[0m"
-    fi
 
     # 删除文件
-    if [ "$st" = 'D' ]; then 
+    elif [ "$st" = 'D' ]; then 
         rm -f "$targetDir/$file"
         echo "\033[32m$st $file\033[0m"
-    fi
 
-    echo "\033[32m$st\033[0m"
+    # 重命名文件
+    elif [ "$st" = 'R100' ]; then 
+        source=`echo $file | awk '{print $1}'`
+        target=`echo $file | awk '{print $2}'`
+        mv -f "$targetDir/$source" "$targetDir/$target"
+        echo "\033[32mR $file\033[0m"
+    fi
 
 done
 
